@@ -1,8 +1,0 @@
-{
-  "/page": "app/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/api/admin-auth/route": "app/api/admin-auth/route.js",
-  "/api/submissions/route": "app/api/submissions/route.js",
-  "/admin/page": "app/admin/page.js"
-}

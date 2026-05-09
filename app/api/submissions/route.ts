@@ -3,7 +3,8 @@ import { promises as fs } from "fs";
 import { join } from "path";
 
 // Set your admin password here or via environment variable
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "your-secure-password";
+// Trim whitespace to avoid issues with env var formatting
+const ADMIN_PASSWORD = (process.env.ADMIN_PASSWORD || "your-secure-password").trim();
 
 const DATA_FILE = join(process.cwd(), "data", "submissions.json");
 
@@ -12,7 +13,7 @@ export async function GET(request: NextRequest) {
     // Get password from header
     const password = request.headers.get("x-admin-password");
 
-    if (!password || password !== ADMIN_PASSWORD) {
+    if (!password || password.trim() !== ADMIN_PASSWORD) {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }

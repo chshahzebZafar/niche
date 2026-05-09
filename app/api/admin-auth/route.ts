@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 // Set your admin password here or via environment variable
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "your-secure-password";
+// Trim whitespace to avoid issues with env var formatting
+const ADMIN_PASSWORD = (process.env.ADMIN_PASSWORD || "your-secure-password").trim();
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,8 +15,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Trim the input password as well
+    const trimmedPassword = password.trim();
+
+    // Debug logging (remove in production)
+    console.log("Login attempt:");
+    console.log("- Input password length:", trimmedPassword.length);
+    console.log("- Env password length:", ADMIN_PASSWORD.length);
+    console.log("- Match:", trimmedPassword === ADMIN_PASSWORD);
+
     // Check password
-    if (password === ADMIN_PASSWORD) {
+    if (trimmedPassword === ADMIN_PASSWORD) {
       return NextResponse.json(
         { success: true },
         { status: 200 }
